@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>ToDo</h1>
+    </div>
+    <div class="w-100"></div>
+    <div class="col">
+      <form [formGroup]="todoForm" (ngSubmit)="processForm()">
+        <div class="container">
+          <div class="row justify-content-end" align="right">
+            <div class="col mb-1">
+              Description: <input type="text" formControlName="description">
+            </div>
+            <div class="w-100"></div>
+            <div class="col">
+              Priority:
+              High <input type="radio" formControlName="priority" value="high">
+              Medium <input type="radio" formControlName="priority" value="medium">
+              Low <input type="radio" formControlName="priority" value="low">
+            </div>
+            <div class="w-100"></div>
+            <div class="col">
+              Due: <input type="text" formControlName="dueDate">
+            </div>
+            <div class="w-100"></div>
+            <div class="col">
+              <button type="submit">Add</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <p>{{test}}</p>
+</div>
