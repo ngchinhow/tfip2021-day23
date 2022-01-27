@@ -6,6 +6,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatInputModule } from '@angular/material/input';
 
 
 const MATERIAL = [
@@ -15,7 +18,10 @@ const MATERIAL = [
   MatToolbarModule,
   MatListModule,
   MatFormFieldModule,
-  MatRadioModule
+  MatRadioModule,
+  MatDatepickerModule,
+  MatSliderModule,
+  MatInputModule
 ];
 
 @NgModule({
