@@ -1,26 +1,39 @@
-<div class="container border border-3 border-dark">
-  <div class="row">
-    <div class="col">
-      <h1>Tasks</h1>
-    </div>
-  </div>
-  <div class="row" *ngFor="let task of tasks">
-    <div class="col">
-      <div class="container border border-3 border-dark">
-        <div class="row">
-          <div class="col-12">
+<mat-card>
+  <div fxLayout="column" style="border-style: solid;">
+    <mat-card-title>Tasks</mat-card-title>
+    <div fxLayout="column" *ngFor="let task of tasks; let i = index"
+      style="border-style: solid;" fxLayoutGap="2vh">
+      <div fxLayout="row"
+        fxLayoutAlign="space-between"
+        *ngIf="task.status != 'completed'">
+        <mat-card-content>
+          <div fxLayout="column" fxFlex="1 0 40em">
             <p>{{task.description}}</p>
+            <div fxLayout="row"
+              fxLayoutAlign="space-between"
+              style="font-style: italic;">
+              <p>{{task.priority}}</p>
+              <p>{{task.dueDate.toDateString()}}</p>
+            </div>
           </div>
-        </div>
-        <div class="row justify-content-between" style="font-style: italic;">
-          <div class="col-6">
-            <p>{{task.priority}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <div fxLayout="row">
+            <button mat-raised-button color="primary" (click)="completeTask(i)"
+              fxFlex="1 0 7em">
+              Complete
+            </button>
+            <button mat-raised-button color="accent" (click)="editTask(i)"
+              fxFlex="1 0 7em">
+              Edit
+            </button>
+            <button mat-raised-button color="warn" (click)="removeTask(i)"
+              fxFlex="1 0 7em">
+              Remove
+            </button>
           </div>
-          <div class="col-6">
-            <p align="right">{{task.dueDate}}</p>
-          </div>
-        </div>
+        </mat-card-actions>
       </div>
     </div>
   </div>
-</div>
+</mat-card>

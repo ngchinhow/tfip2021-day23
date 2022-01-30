@@ -1,17 +1,8 @@
-<div class="container">
-  <div class="row">
-    <div class="col-4">
-      <mat-toolbar color="primary">
-        <span>My Application</span>
-      </mat-toolbar>
-    </div>
-    <div class="w-100"></div>
-    <div class="col-4">
-      <app-todo (filledForm)="task.addTask($event)"></app-todo>
-    </div>
-    <div class="w-100"></div>
-    <div class="col-4">
-      <app-task #task></app-task>
-    </div>
-  </div>
+<div fxLayout="column" fxLayoutGap="2vh">
+  <mat-toolbar color="primary">
+    <span>My Application</span>
+  </mat-toolbar>
+  <app-todo [todoForm]="task.filledForm"
+    (todoFormChange)="task.addTask($event)"></app-todo>
+  <app-task #task></app-task>
 </div>

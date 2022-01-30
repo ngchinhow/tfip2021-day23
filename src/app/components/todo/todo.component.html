@@ -1,51 +1,45 @@
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <h1>ToDo</h1>
-    </div>
-    <div class="w-100"></div>
-    <div class="col">
-      <form [formGroup]="todoForm" (ngSubmit)="processForm()">
-        <div class="container">
-          <div class="row justify-content-end" align="right">
-            <div class="col mb-1">
-              <mat-form-field>
-                <input type="text" formControlName="description"
-                  placeholder="Please enter the description of your todo."
-                  matInput required>
-              </mat-form-field>
-            </div>
-            <div class="w-100"></div>
-            <div class="col">
-              <mat-radio-group formControlName="priority">
-                <mat-radio-button value="high">High</mat-radio-button>
-                <mat-radio-button value="medium">Medium</mat-radio-button>
-                <mat-radio-button value="low">Low</mat-radio-button>
-              </mat-radio-group>
-            </div>
-            <div class="w-100"></div>
-            <div class="col">
-              <mat-form-field appearance="fill">
-                <mat-label>Choose a date</mat-label>
-                <input matInput [min]="minDate" [matDatepicker]="datepicker"
-                  formControlName="dueDate" id="dueDate" placeholder="Due date"
-                  required>
-                <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-                <mat-datepicker #datepicker></mat-datepicker>
-                <mat-error *ngIf="todoForm.get('dueDate')?.hasError('matDatepickerMin')">
-                  Please enter a valid due date
-                </mat-error>
-              </mat-form-field>
-            </div>
-            <div class="w-100"></div>
-            <div class="col">
-              <button type="submit" [disabled]="todoForm.invalid">Add</button>
-            </div>
+<mat-card>
+  <div fxLayout="column" fxFlexAlign="center">
+    <mat-card-title>ToDo</mat-card-title>
+    <form [formGroup]="todoForm" (ngSubmit)="processForm()">
+      <div fxLayout="column" fxLayoutGap="2vh">
+        <mat-card-content>
+          <div fxLayout="column" fxLayoutGap="2vh">
+            <mat-form-field>
+              <input type="text" formControlName="description"
+                placeholder="Please enter the description of your todo."
+                matInput required>
+            </mat-form-field>
+            <mat-radio-group formControlName="priority" required>
+              <mat-radio-button *ngFor="let option of priorityOptions"
+                [value]="option">
+                {{capitalCase(option)}}
+              </mat-radio-button>
+            </mat-radio-group>
+            <mat-form-field appearance="fill">
+              <mat-label>Choose a date</mat-label>
+              <input matInput [min]="minDate" [matDatepicker]="datepicker"
+                formControlName="dueDate" id="dueDate" placeholder="Due date"
+                required>
+              <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+              <mat-datepicker #datepicker></mat-datepicker>
+            </mat-form-field>
+            <mat-error *ngIf="todoForm.get('dueDate')?.hasError('matDatepickerMin')">
+              Please enter a valid due date
+            </mat-error>
           </div>
-        </div>
-      </form>
-    </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button type="submit" [disabled]="todoForm.invalid"
+          *ngIf="!todoForm.contains('index')">
+          Add
+        </button>
+        <button mat-raised-button type="submit" [disabled]="todoForm.invalid"
+          *ngIf="todoForm.contains('index')">
+          Update
+        </button>
+        </mat-card-actions>
+      </div>
+    </form>
   </div>
-  <p>TS date is {{test}}</p>
-  <p>form date is {{test2}}</p>
-</div>
+</mat-card>

@@ -9,6 +9,8 @@ import { TodoComponent } from './components/todo/todo.component';
 import { TaskComponent } from './components/task/task.component';
 import { MaterialModule } from './material/material.module';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,13 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     {

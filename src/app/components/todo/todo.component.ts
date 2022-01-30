@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
+import { priorityOptions } from 'src/app/task';
 
 @Component({
   selector: 'app-todo',
@@ -7,12 +8,11 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn 
   styleUrls: ['./todo.component.css']
 })
 export class TodoComponent implements OnInit {
-  todoForm!: FormGroup;
-  test: string = '';
-  test2: number = 0;
   minDate = new Date();
-  console = console;
-  @Output() filledForm = new EventEmitter<FormGroup>();
+  priorityOptions = priorityOptions;
+  @Input() todoForm!: FormGroup;
+  @Output() todoFormChange = new EventEmitter<FormGroup>();
+  @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
 
   constructor(private fb: FormBuilder) { }
 
@@ -21,15 +21,17 @@ export class TodoComponent implements OnInit {
       description: this.fb.control(''),
       priority: this.fb.control(''),
       dueDate: this.fb.control('')
-    })
+    });
   }
 
   processForm() {
-    this.filledForm.emit(this.todoForm);
-    const date = new Date();
-    this.test = date.toLocaleString();
-    this.test2 = this.todoForm.get('dueDate')?.value;
-    this.todoForm.reset;
+    this.todoFormChange.emit(this.todoForm);
+    this.todoForm.reset();
+    this.formGroupDirective.resetForm();
+  }
+
+  capitalCase(str: string) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
   }
 }
 
